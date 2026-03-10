@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Real-Time Hand Tracking & Gesture Detection</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <header class="app-header">
+      <h1>👋 Hand Gesture Detection</h1>
+      <p class="subtitle">Real-time gesture recognition using MediaPipe</p>
+    </header>
+
+    <main class="main-content">
+      <div class="visualizer-container">
+        <div class="camera-frame">
+          <video id="video" playsinline></video>
+          <canvas id="output"></canvas>
+          <div class="camera-overlay">
+            <div class="gesture-display" id="gesture">
+              <span class="gesture-label">Gesture:</span>
+              <span class="gesture-value" id="gestureValue">None</span>
+            </div>
+            <div class="fps-counter" id="fps">FPS: 0</div>
+          </div>
+        </div>
+        
+        <div class="gesture-guide">
+          <h3>🎯 Detected Gestures</h3>
+          <div class="gesture-list">
+            <div class="gesture-item" data-gesture="Open Palm">🖐️ Open Palm</div>
+            <div class="gesture-item" data-gesture="Fist">✊ Fist</div>
+            <div class="gesture-item" data-gesture="Peace Sign">✌️ Peace Sign</div>
+            <div class="gesture-item" data-gesture="Thumbs Up">👍 Thumbs Up</div>
+            <div class="gesture-item" data-gesture="Love You">🤟 Love You</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls-panel">
+        <div class="control-group">
+          <button id="startBtn" class="btn btn-primary">
+            <span class="btn-icon">▶️</span>
+            Start Detection
+          </button>
+          <button id="stopBtn" class="btn btn-secondary" disabled>
+            <span class="btn-icon">⏹️</span>
+            Stop Detection
+          </button>
+          <button id="flipBtn" class="btn btn-outline">
+            <span class="btn-icon">🔄</span>
+            Flip Camera
+          </button>
+        </div>
+
+        <div class="settings-panel">
+          <div class="setting-item">
+            <label for="confidence">Detection Confidence: <span id="confValue">0.6</span></label>
+            <input type="range" id="confidence" min="0.1" max="1" step="0.1" value="0.6">
+          </div>
+          
+          <div class="setting-item">
+            <label for="maxHands">Max Hands: <span id="handsValue">1</span></label>
+            <input type="range" id="maxHands" min="1" max="2" step="1" value="1">
+          </div>
+        </div>
+      </div>
+
+      <div class="stats-panel">
+        <div class="stat-card">
+          <div class="stat-label">Hand Status</div>
+          <div class="stat-value" id="handStatus">No hand detected</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Frame Rate</div>
+          <div class="stat-value" id="frameRate">0 fps</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">Detection Time</div>
+          <div class="stat-value" id="detectionTime">0 ms</div>
+        </div>
+      </div>
+    </main>
+
+    <div id="error" class="error-message" aria-live="polite"></div>
+
+    <footer class="app-footer">
+      <p>Hand Tracking Demo • Built with MediaPipe • <span>by vaibhav</span></p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
